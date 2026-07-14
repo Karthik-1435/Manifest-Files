@@ -4,6 +4,8 @@ kind: StatefulSet
 metadata:
   name: php-db-statefulset
 spec:
+  serviceName: mysqldb
+ 
   replicas: 1
   selector:
     matchLabels:
