@@ -20,7 +20,7 @@ spec:
             matchLabels:
               app: php-app
           ports:
-              port: 3306
+              port: 80
             - protocol: TCP
              
               
@@ -30,7 +30,7 @@ spec:
             matchLabels:
               app: php-db
           ports:
-              port: 80
+              port: 3306
             - protocol: TCP
               
     - to:
