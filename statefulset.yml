@@ -37,7 +37,7 @@ spec:
           volumeMounts:
             - name: my-sql-data
               mountPath: /usr/share/nginx/htnl
-              
+                  
   volumeClaimTemplates:
     - metadata:
         name: my-sql-data
@@ -50,5 +50,4 @@ spec:
          
         resources:
           requests:
-            storage: 2Gi    
-
+            storage: 1Gi
