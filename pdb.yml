@@ -3,18 +3,20 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: php-app-pdb
+  namespace: default
 spec:
   minAvailable: 2
   selector:
     matchLabels:
       app: php-app
 ---
-apiversion: policy/v1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: php-db-pdb
+  namespace: default
 spec:
-  minAvailable: 1 
+  minAvailable: 1
   selector:
     matchLabels:
       app: php-db

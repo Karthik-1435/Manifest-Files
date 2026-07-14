@@ -3,39 +3,38 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-phpapp-to-mysql-ingress
+  namespace: default
 spec:
-  podselector:
-    matechLabels:
+  podSelector:
+    matchLabels:
       app: php-app
-
   policyTypes:
     - Ingress
     - Egress
-
   ingress:
     - from:
-        - noeSelector:
+        - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: ingress-nginx
         - podSelector:
             matchLabels:
-              kubernetes.io/metadata.name: ingress-nginx
-            ports:
-              - protocol: TCP
-                port: 80
+              app: php-app
+          ports:
+            - protocol: TCP
+              port: 80
   egress:
     - to:
         - podSelector:
             matchLabels:
               app: php-db
-            ports:
-              - protocol: TCP
-                port: 3306
+          ports:
+            - protocol: TCP
+              port: 3306
     - to:
         - podSelector:
             matchLabels:
-              kubernetes.io/metadata.name: kube-system
-            ports:
-              - protocol: UDP
-                port: 53
+              k8s-app: kube-dns
+          ports:
+            - protocol: UDP
+              port: 53
   
