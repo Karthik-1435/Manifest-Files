@@ -20,21 +20,24 @@ spec:
             matchLabels:
               app: php-app
           ports:
-            - protocol: TCP
               port: 80
+            - protocol: TCP
+              
   egress:
     - to:
         - podSelector:
             matchLabels:
               app: php-db
           ports:
-            - protocol: TCP
               port: 3306
+            - protocol: TCP
+            
     - to:
         - podSelector:
             matchLabels:
               k8s-app: kube-dns
           ports:
-            - protocol: UDP
               port: 53
+            - protocol: UDP
+              
   
