@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: php-db-statefulset
-  namespace: default
+
 spec:
   serviceName: mysqldb
   replicas: 1
@@ -16,14 +16,17 @@ spec:
         app: php-db
     spec:
       containers:
-        - name: php-db-container
+        - name: db-container
           image: karthik621/phpapp:dbimage
+          
           ports:
             - containerPort: 3306
               name: mysql
+              
           envFrom:
             - secretRef:
                 name: my-secret
+                
           resources:
             requests:
               cpu: "300m"
@@ -33,14 +36,19 @@ spec:
               memory: "1Gi"
           volumeMounts:
             - name: my-sql-data
-              mountPath: /var/lib/mysql
+              mountPath: /usr/share/nginx/htnl
+              
   volumeClaimTemplates:
     - metadata:
         name: my-sql-data
+        
       spec:
         accessModes:
           - ReadWriteOnce
+
+        storageClassName: gp2
+         
         resources:
           requests:
-            storage: 1Gi    
+            storage: 2Gi    
 
