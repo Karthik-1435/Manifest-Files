@@ -35,12 +35,12 @@ spec:
               cpu: "500m"
               memory: "1Gi"
           volumeMounts:
-            - name: my-sql-data
+            - name: mysql-data
               mountPath: /usr/share/nginx/htnl
                   
   volumeClaimTemplates:
     - metadata:
-        name: my-sql-data
+        name: mysql-data
         
       spec:
         accessModes:
