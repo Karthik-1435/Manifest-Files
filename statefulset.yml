@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: php-db-statefulset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-db
+  template:
+    metadata:
+      labels:
+        app: php-db
+    spec:
+      containers:
+           -name: php-db-container
+           image: karthik621/phpapp:dbimage
+           ports:
+             - containerPort: 3306
+
+
+           envFrom:
+             - secretRef:
+                  name: my-secret
+
+           resources:
+              requests:
+                cpu: "300m"
+                memory: "512Mi"
+              limits:
+                cpu: "500m"
+                memory: "1Gi"
+
+           volumeMounts:
+              - name: my-sql-data
+                mountPath: /var/lib/mysql
+
+      volumeClaimTemplates:
+         - metadata:
+             name: my-sql-data
+           spec:
+             accessModes:
+                - ReadWriteOnce
+             resources:
+               requests:
+                 storage: 1Gi     
+
