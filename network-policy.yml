@@ -8,11 +8,11 @@ spec:
   podSelector:
     matchLabels:
       app: php-app
-      
+
   policyTypes:
     - Ingress
     - Egress
-    
+
   ingress:
     - from:
         - namespaceSelector:
@@ -22,26 +22,22 @@ spec:
             matchLabels:
               app: php-app
       ports:
-          port: 80
         - protocol: TCP
-             
-              
+          port: 80
+
   egress:
     - to:
         - podSelector:
             matchLabels:
               app: php-db
       ports:
-          port: 3306
         - protocol: TCP
-              
+          port: 3306
+
     - to:
         - podSelector:
             matchLabels:
               kubernetes.io/metadata.name: kube-system
       ports:
-          port: 53
         - protocol: UDP
-              
-              
-  
+          port: 53
